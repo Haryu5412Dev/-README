@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<!-- 원본 코드 -->
+
+<!-- <!DOCTYPE html>
 <html lang="kr">
     <head>
         <meta charset="UTF-8">
@@ -7,7 +9,7 @@
     </head>
     <body>
         <div id="map" style="width: 100vw; height: 100vh"></div>
-        <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=96736161c178005e19ef53d61992f0f0"></script>
+        <script src="dapi.kakao.com/v2/maps/sdk.js?appkey=96736161c178005e19ef53d61992f0f0"></script>
         <script>
             navigator.geolocation.getCurrentPosition((position) => {
             const latitude = position.coords.latitude;
@@ -22,6 +24,43 @@
             };
 
             let map = new kakao.maps.Map(container, options);
+            });
+        </script>
+    </body>
+</html> -->
+
+<!-- 수정된 코드 -->
+
+<!-- 
+    고친 이유 : API 로드하는중에 오류가 있었음. 그 오류를 고치기 위해서 Kakao Maps API가 완전히 로드된 후에 지도를 초기화 했음.
+-->
+
+<!DOCTYPE html>
+<html lang="kr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>지도 띄우기</title>
+    </head>
+    <body>
+        <div id="map" style="width: 100vw; height: 100vh"></div>
+        <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=96736161c178005e19ef53d61992f0f0"></script>
+        <script>
+            navigator.geolocation.getCurrentPosition((position) => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                console.log(position);
+                console.log(latitude, longitude);
+
+                kakao.maps.load(() => {
+                    let container = document.getElementById("map");
+                    let options = {
+                        center: new kakao.maps.LatLng(latitude, longitude),
+                        level: 1,
+                    };
+
+                    let map = new kakao.maps.Map(container, options);
+                });
             });
         </script>
     </body>
